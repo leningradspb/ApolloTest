@@ -14,7 +14,7 @@ class CustomInterceptor: ApolloInterceptor {
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
         completion: @escaping (Swift.Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-        request.addHeader(name: "Authorization", value: "Bearer <<TOKEN>>")
+//        request.addHeader(name: "Authorization", value: "Bearer <<TOKEN>>")
         
         print("request :\(request)")
         print("response :\(String(describing: response))")
@@ -57,8 +57,8 @@ public class ApolloClientCreator {
         
         let cache = InMemoryNormalizedCache()
                 let store1 = ApolloStore(cache: cache)
-                let authPayloads = ["Authorization": "Bearer <<TOKEN>>"]
-                let configuration = URLSessionConfiguration.default
+                let authPayloads = ["authorization" : "Bearer \(token)"]
+                let configuration = URLSessionConfiguration.background(withIdentifier: "OmniChatHttpTransport.ApolloClient.\(UUID().uuidString)")
                 configuration.httpAdditionalHeaders = authPayloads
                 
                 let client1 = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
@@ -86,9 +86,9 @@ public class ApolloClientCreator {
         
         let cache = InMemoryNormalizedCache()
                 let store1 = ApolloStore(cache: cache)
-                let authPayloads = ["Authorization": "Bearer <<TOKEN>>"]
+//                let authPayloads = ["Authorization": "Bearer <<TOKEN>>"]
                 let configuration = URLSessionConfiguration.default
-                configuration.httpAdditionalHeaders = authPayloads
+//                configuration.httpAdditionalHeaders = authPayloads
                 
                 let client1 = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
                 let provider = NetworkInterceptorProvider(client: client1, shouldInvalidateClientOnDeinit: true, store: store1)

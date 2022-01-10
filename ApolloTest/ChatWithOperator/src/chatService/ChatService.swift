@@ -110,12 +110,14 @@ class ChatService {
         if chatSettings.jwtToken == nil {
             do {
                 onConnectionStateChanged(.connecting)
+                print("try authenticate")
                 try omniChatHttpTransport.authorize()
                 onConnectionStateChanged(.authenticated)
                 try loadMessagesHistory(offsetMessageId: nil)
             }
             catch {
                 onConnectionStateChanged(.disconnected)
+                print(error.localizedDescription, error.asAFError?.localizedDescription)
                 throw error
             }
         }
