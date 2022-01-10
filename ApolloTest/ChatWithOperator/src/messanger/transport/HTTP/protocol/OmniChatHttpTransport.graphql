@@ -1,0 +1,131 @@
+mutation CustomerLoginOneStepWay($provider: String!, $secret: String!){
+    oneStepTokenSign(provider: $provider, token: $secret) {
+        token
+     }
+}
+
+query ActivityGet($id: ID!) {
+    activity(id: $id) {
+        id
+        state
+        customer {
+            id
+        }
+        operator {
+            id
+        }
+        duration
+        channelType
+        messages {
+            id
+            activityId
+            body
+            customerId
+            operatorId
+            insertedAt
+            isRead
+            sender
+            receiver
+            attachment {
+                ext
+                original
+                preview
+                size
+                title
+                type
+            }
+        }
+        insertedAt
+    }
+}
+
+mutation ActivityCreateByFirstMessage($channelIdentifier: String!, $message: String!) {
+    activityByFirstMessage(channelIdentifier:$channelIdentifier, text: $message) {
+        id
+        state
+        customer {
+            id
+        }
+        operator {
+            id
+        }
+        duration
+        channelType
+        messages {
+            id
+            activityId
+            body
+            customerId
+            operatorId
+            insertedAt
+            isRead
+            sender
+            receiver
+            attachment {
+                ext
+                original
+                preview
+                size
+                title
+                type
+            }
+        }
+        insertedAt
+    }
+}
+
+query MessagesFeed($cursor: ID, $limit: Int) {
+    messagesFeed(cursor: $cursor, limit: $limit) {
+        messages{
+            id
+            activityId
+            body
+            customerId
+            operatorId
+            insertedAt
+            isRead
+            sender
+            receiver
+            attachment {
+                ext
+                original
+                preview
+                size
+                title
+                type
+            }
+        }
+        pageInfo{
+            cursor
+            hasNextPage
+        }
+    }
+}
+
+query FirstMessagesFeed($limit: Int) {
+    messagesFeed(limit: $limit) {
+        messages{
+            id
+            activityId
+            body
+            customerId
+            operatorId
+            insertedAt
+            isRead
+            sender
+            receiver
+            attachment {
+                ext
+                original
+                preview
+                size
+                title
+                type
+            }
+        }
+        pageInfo{
+            cursor
+            hasNextPage
+        }
+    }
+}
