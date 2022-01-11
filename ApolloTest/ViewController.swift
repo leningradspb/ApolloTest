@@ -38,49 +38,31 @@ class ViewController: UIViewController {
 //                                               maxMessageLength: 6000,
 //                                               sessionTimeout: 180)
         
-        let chatSettings = ChatSettings(authenticationEndpointUrl: "https://tomni.rosbank.ru:7443/api/customers/",
-                                               httpServerEndpointUrl: "https://tomni.rosbank.ru:7443/api/",
-                                               webSocketServerEndpointUrl: "wss://tomni.rosbank.ru:7443/socket/",
-                                               downloadAttachmentUrl: "https://tomni.rosbank.ru:7443/",
-                                               uploadAttachmentUrl: "https://tomni.rosbank.ru:7443/attachment/upload/",
-                                               maxMessageLength: 6000,
-                                               sessionTimeout: 180)
-        
-        let token = ChatTokenForOmni(token: "aa04a12a-40c1-4956-ad20-9e1557c33861")
-        let cSettings = ChatServiceSettings(reconnectLimit: 5, chatSettings: chatSettings, omniToken: token)
-        
-        
-        let cService = ChatService(chatSettings: cSettings)
-        
-//        do {
-//            try cService.authenticate()
-//            print("success")
-//        }
-//        catch {
-//            print("error")
-//        }
-        
-//        let charService = createChatService(chatSettings, token)
-//        do {
-//            try charService.authenticate()
-//            print("success")
-//        }
-//        catch {
-//            print("error")
-//        }
+//        let chatSettings = ChatSettings(authenticationEndpointUrl: "https://tomni.rosbank.ru:7443/api/customers/",
+//                                               httpServerEndpointUrl: "https://tomni.rosbank.ru:7443/api/",
+//                                               webSocketServerEndpointUrl: "wss://tomni.rosbank.ru:7443/socket/",
+//                                               downloadAttachmentUrl: "https://tomni.rosbank.ru:7443/",
+//                                               uploadAttachmentUrl: "https://tomni.rosbank.ru:7443/attachment/upload/",
+//                                               maxMessageLength: 6000,
+//                                               sessionTimeout: 180)
 //
-//        print(charService)
+//        let token = ChatTokenForOmni(token: "aa04a12a-40c1-4956-ad20-9e1557c33861")
+//        let cSettings = ChatServiceSettings(reconnectLimit: 5, chatSettings: chatSettings, omniToken: token)
+//
+//
+//        let cService = ChatService(chatSettings: cSettings)
+
         
-        let que = DispatchQueue(label: "QUE 1")
-        let omniAuthorizationHttpTransport = OmniAuthorizationHttpTransport(omniToken: "aa04a12a-40c1-4956-ad20-9e1557c33861", url: "https://tomni.rosbank.ru:7443/api/customers/", intervalTimeout: 5, threadSafeQueue: que)
+        let que = DispatchQueue(label: "OmniChatHttpTransport.Apollo.syncQueue")
+        let omniAuthorizationHttpTransport = OmniAuthorizationHttpTransport(omniToken: "50fedb77-f625-4e0e-a0d7-1bbf2eb11a17", url: "https://tomni.rosbank.ru:7443/api/customers/", intervalTimeout: 3, threadSafeQueue: que)
         
         
         do {
             try omniAuthorizationHttpTransport.loginOneStep()
-            print("success")
+            print("success loginOneStep()")
         }
         catch {
-            print("error")
+            print("error loginOneStep()")
         }
     }
     
@@ -95,20 +77,25 @@ class ViewController: UIViewController {
 //       completion?(.success(chatSettings))
 //   }
 
-    private func createChatService(_ settings: ChatSettings, _ token: ChatTokenForOmni) -> ChatService {
-        let chatServiceSettings = ChatServiceSettings(reconnectLimit: 5,
-                                                      chatSettings: settings,
-                                                      omniToken: token)
-        
-        let chatService = ChatService(chatSettings: chatServiceSettings)
-//        chatService.addDelegate(delegate: messageCollectionView, sessionConnectionDelegate: self)
-        
-//        inputMessageView.configure(attachEnabled: !settings.uploadAttachmentUrl.isEmpty, maxTextLength: Int(settings.maxMessageLength))
-//        inputMessageView.updateAttachmentButton(isEnabled: false)
-//        messageCollectionView.addChatService(chatService)
-        
-        return chatService
-    }
+//    private func createChatService(_ settings: ChatSettings, _ token: ChatTokenForOmni) -> ChatService {
+//        let chatServiceSettings = ChatServiceSettings(reconnectLimit: 5,
+//                                                      chatSettings: settings,
+//                                                      omniToken: token)
+//
+//        let chatService = ChatService(chatSettings: chatServiceSettings)
+////        chatService.addDelegate(delegate: messageCollectionView, sessionConnectionDelegate: self)
+//
+////        inputMessageView.configure(attachEnabled: !settings.uploadAttachmentUrl.isEmpty, maxTextLength: Int(settings.maxMessageLength))
+////        inputMessageView.updateAttachmentButton(isEnabled: false)
+////        messageCollectionView.addChatService(chatService)
+//
+//        return chatService
+//    }
+    
+//    private func customerLoginOneStepWayMutation() {
+//        let customer = CustomerLoginOneStepWayMutation(provider: "rosbank", secret: "50fedb77-f625-4e0e-a0d7-1bbf2eb11a17")
+//
+//    }
 
 }
 

@@ -87,10 +87,10 @@ public class ApolloClientCreator {
         let cache = InMemoryNormalizedCache()
                 let store1 = ApolloStore(cache: cache)
 //                let authPayloads = ["Authorization": "Bearer <<TOKEN>>"]
-                let configuration = URLSessionConfiguration.default
+//                let configuration = URLSessionConfiguration.default
 //                configuration.httpAdditionalHeaders = authPayloads
                 
-                let client1 = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
+                let client1 = URLSessionClient(sessionConfiguration: sessionConfiguration, callbackQueue: nil)
                 let provider = NetworkInterceptorProvider(client: client1, shouldInvalidateClientOnDeinit: true, store: store1)
         
         let requestChainTransport = RequestChainNetworkTransport(interceptorProvider: provider,
